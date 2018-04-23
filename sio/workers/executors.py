@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 import os
 import subprocess
 import tempfile
@@ -13,6 +14,8 @@ from sio.workers import util, elf_loader_patch
 from sio.workers.sandbox import get_sandbox
 from sio.workers.util import ceil_ms2s, ms2s, s2ms, path_join_abs, \
     null_ctx_manager, tempcwd
+import six
+from six.moves import map
 
 logger = logging.getLogger(__name__)
 
@@ -101,7 +104,7 @@ def execute_command(command, env=None, split_lines=False, stdin=None,
 
     ret_env = {}
     if env is not None:
-        for key, value in env.iteritems():
+        for key, value in six.iteritems(env):
             env[key] = str(value)
 
     perf_timer = util.PerfTimer()

@@ -1,5 +1,6 @@
+from __future__ import absolute_import
 import os
-import urllib2
+import six.moves.urllib.request, six.moves.urllib.error, six.moves.urllib.parse
 import time
 import shutil
 import logging
@@ -177,9 +178,9 @@ def launch_filetracker_server():
         return
     public_url = os.environ['FILETRACKER_PUBLIC_URL'].split()[0]
     try:
-        urllib2.urlopen(public_url + '/status')
+        six.moves.urllib.request.urlopen(public_url + '/status')
         return
-    except urllib2.URLError, e:
+    except six.moves.urllib.error.URLError as e:
         logger.info('No Filetracker at %s (%s), launching', public_url, e)
         _do_launch()
 

@@ -1,7 +1,10 @@
+from __future__ import absolute_import
 import random
 import unittest
 
 from sio.sioworkersd.scheduler import prioritizing
+import six
+from six.moves import range
 
 
 class WaitingTasksQueueTest(unittest.TestCase):
@@ -424,12 +427,12 @@ class WorkerManagerStub(object):
 
         any_cpus_ram = [
                 worker.available_ram_mb
-                for _, worker in self.workerData.iteritems()
+                for _, worker in six.iteritems(self.workerData)
                 if worker.can_run_cpu_exec]
 
         vcpu_onlys_ram = [
                 worker.available_ram_mb
-                for _, worker in self.workerData.iteritems()
+                for _, worker in six.iteritems(self.workerData)
                 if not worker.can_run_cpu_exec]
 
         self.minAnyCpuWorkerRam = min(any_cpus_ram) if any_cpus_ram else None

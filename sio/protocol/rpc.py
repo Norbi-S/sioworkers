@@ -1,6 +1,8 @@
+from __future__ import absolute_import
 from twisted.protocols.basic import NetstringReceiver
 from twisted.internet import defer, reactor
 from twisted.logger import Logger
+import six
 
 log = Logger()
 
@@ -68,7 +70,7 @@ class WorkerRPC(NetstringReceiver):
 
     def connectionLost(self, reason):
         NetstringReceiver.connectionLost(self, reason)
-        for (_, timer) in self.pendingCalls.itervalues():
+        for (_, timer) in six.itervalues(self.pendingCalls):
             if not timer.called:
                 timer.cancel()
 

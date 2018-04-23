@@ -1,3 +1,4 @@
+from __future__ import absolute_import
 from contextlib import contextmanager
 import pkg_resources
 import time
@@ -7,6 +8,7 @@ import os
 import tempfile
 import shutil
 import threading
+import six
 
 logger = logging.getLogger(__name__)
 
@@ -150,10 +152,8 @@ class ClassInitMeta(type):
         cls.__classinit__()
 
 
-class ClassInitBase(object):
+class ClassInitBase(six.with_metaclass(ClassInitMeta, object)):
     """Abstract base class injecting ClassInitMeta meta class."""
-
-    __metaclass__ = ClassInitMeta
 
     @classmethod
     def __classinit__(cls):
