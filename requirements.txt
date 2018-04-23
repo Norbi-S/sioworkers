@@ -1,0 +1,1 @@
+-e http://github.com/sio2project/filetracker/zipball/master#egg=filetracker-1.1.0

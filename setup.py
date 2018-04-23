@@ -20,6 +20,7 @@ setup(
         'enum34',  # backport from py3
         'supervisor>=3.3.1',
         'sortedcontainers',
+        'six',
     ],
 
     setup_requires = [
