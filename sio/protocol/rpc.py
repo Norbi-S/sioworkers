@@ -133,7 +133,7 @@ class WorkerRPC(NetstringReceiver):
     def stringReceived(self, string):
         try:
             try:
-                msg = json.loads(string)
+                msg = json.loads(string.decode())
             except ValueError:
                 log.failure("Received message with invalid JSON. Terminating.")
                 raise
@@ -161,7 +161,7 @@ class WorkerRPC(NetstringReceiver):
 
     def sendMsg(self, msg_type, **kwargs):
         kwargs['type'] = msg_type
-        self.sendString(json.dumps(kwargs))
+        self.sendString(json.dumps(kwargs).encode("ascii"))
 
     def call(self, cmd, *args, **kwargs):
         """Call a remote function. Raises RemoteError if something goes wrong
@@ -182,7 +182,7 @@ class WorkerRPC(NetstringReceiver):
             self.pendingCalls[current_id] = (d, timer)
             s = json.dumps({'type': 'call', 'id': current_id,
                 'method': cmd, 'args': args})
-            self.sendString(s)
+            self.sendString(s.encode("ascii"))
         if self.state != State.established:
             # wait for connection
             self.ready.addCallback(cb)

@@ -32,14 +32,14 @@ class TestServerFactory(protocol.Factory):
 
 
 def encode(x):
-    x = json.dumps(x)
-    return str(len(x)) + ':' + x + ','
+    x = json.dumps(x).encode("ascii")
+    return b''.join([str(len(x)).encode("ascii"), b':', x, b','])
 
 
 def decode(x):
     # This is a bit hacky, but we only care about the data part -
     # encoding netstrings is handled by Twisted and should work
-    data = x.partition(':')[2][:-1]
+    data = x.partition(b':')[2][:-1].decode()
     return json.loads(data)
 
 hello_msg = {'type': 'hello', 'data': {}}
