@@ -1,0 +1,2 @@
+https://github.com/mrd1no/poster-0.8.1-for-Python-3.4/zipball/master#egg=poster-0.8.1
+http://github.com/sio2project/filetracker/zipball/master#egg=filetracker-1.1.0
